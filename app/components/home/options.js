@@ -15,7 +15,7 @@ export default class Options extends Component{
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.optionsContainer}>
-					<Option icon='newspaper-o' text='Noticias'/>
+					<Option icon='newspaper-o' text='Noticias' route={{ title: 'News', index: 1 }}/>
 					<Option icon='globe' text='Sedes'/>
 				</View>
 				<View style={styles.optionsContainer}>

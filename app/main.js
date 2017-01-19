@@ -1,41 +1,28 @@
 import React, { Component } from 'react';
 
-import {
-	View,
-	Text,
-	StyleSheet,
-} from 'react-native';
+// import {
+// 	View,
+// 	Text,
+// 	StyleSheet,
+// 	Navigator,
+// } from 'react-native';
 
-import Options from './components/home/options';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import gnosisApp from './redux/reducers';
+
+import ReduxNavigator from './components/navigation';
+
+let store = createStore(gnosisApp);
 
 
 export default class Main extends Component{
 
 	render () {
 		return (
-			<View>
-				<Options/>
-			</View>
+			<Provider store={store}>
+				<ReduxNavigator/>
+			</Provider>
 		)
 	}
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
