@@ -1,12 +1,4 @@
 import React, { Component } from 'react';
-
-// import {
-// 	View,
-// 	Text,
-// 	StyleSheet,
-// 	Navigator,
-// } from 'react-native';
-
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import gnosisApp from './redux/reducers';

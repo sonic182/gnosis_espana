@@ -17,7 +17,7 @@ class Option extends Component{
 	render () {
 		return (
 			<TouchableHighlight onPress={() => {
-				this.props.pushRoute()
+				this.props.route ? this.props.pushRoute() : alert('Esta sección no está disponible')
 			}}>
 				<View style={styles.container}>
 					<Icon
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-around',
     alignItems: 'center',
     // alignSelf: 'stretch',
-    backgroundColor: '#ddd',
+    backgroundColor: 'white',
 		// paddingVertical: 15,
 		width: 150,
 		paddingVertical: 15,

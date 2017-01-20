@@ -3,15 +3,20 @@ import { connect } from 'react-redux';
 import {
 	setNavigator,
 	pushRoute,
+	popRoute,
  } from '../redux/actions'
 import {
 	Navigator,
 	Text,
 	StyleSheet,
+	BackAndroid,
+	Image,
 } from 'react-native';
 
 import Options from './home/options';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+// const myIcon = (<Icon name="rocket" size={30} color="#900" />)
 
 class Nav extends Component {
 
@@ -24,7 +29,15 @@ class Nav extends Component {
 	}
 
 	componentDidMount(){
-		this.props.setNavigator(this.navigator)
+		this.props.setNavigator({navigator: this.navigator, route: this.routes[0]})
+
+		BackAndroid.addEventListener('hardwareBackPress', () => {
+			if (this.navigator.getCurrentRoutes().length === 1  ) {
+				return false;
+			}
+			this.props.popRoute();
+			return true;
+		});
 	}
 
 	render (){
@@ -35,6 +48,25 @@ class Nav extends Component {
 					this.navigator = ref;
 			}}
 			initialRoute={this.routes[0]}
+			navigationBar={
+			     <Navigator.NavigationBar
+			       routeMapper={{
+			         LeftButton: (route, navigator, index, navState) => {
+								 return (<Image style={{height: 50, width: 50, marginTop: 4,padding: 15}} source={require('../assets/images/sol_acuario.png')}/>)
+								//  return (<Icon name="bars" size={22} style={{padding: 15}} color="white" />);
+							 },
+			         RightButton: (route, navigator, index, navState) =>
+			           { return (<Text/>); },
+			          //  { return (<Icon name="search" size={22} style={{padding: 15}} color="white" />); },
+			         Title: (route, navigator, index, navState) =>
+			           { return (
+									 <Text style={{color: 'white', fontSize: 18, paddingVertical: 15}}>
+									 Gnosis España
+									 </Text>); },
+			       }}
+			       style={styles.navBar}
+			     />
+			  }
 			renderScene={(route, navigator) =>{
 
 				switch(route.title){
@@ -62,14 +94,16 @@ class Nav extends Component {
 
 const styles = StyleSheet.create({
 	navigator: {
-
+		backgroundColor: '#eee',
+		paddingTop: 55,
+	},
+	navBar: {
+		backgroundColor: '#145694',
 	}
 })
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-
-  }
+	return {}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -79,6 +113,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		pushRoute: () => {
 			dispatch(pushRoute(ownProps.route))
+		},
+		popRoute: () => {
+			dispatch(popRoute())
 		},
   }
 }
