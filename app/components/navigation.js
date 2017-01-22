@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 
 import Options from './home/options';
+import News from './news/news';
+import Post from './news/post';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 // const myIcon = (<Icon name="rocket" size={30} color="#900" />)
@@ -25,6 +27,7 @@ class Nav extends Component {
 		this.routes = [
 			{ title: 'Home', index: 0 },
 			{ title: 'News', index: 1 },
+			{ title: 'Post', index: 2, post: {url: null}},
 		]
 	}
 
@@ -74,13 +77,14 @@ class Nav extends Component {
 						<Options/>
 					)
 					case 'News': return (
-						<Text>
-						News View
-						</Text>
+						<News/>
+					)
+					case 'Post': return (
+						<Post post={route.post}/>
 					)
 					default: return (
 						<Text>
-						Error rendering view
+						Error rendering view, you may haven't included in navigation
 						</Text>
 					)
 				}
